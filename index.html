@@ -12,20 +12,19 @@ body {
   background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   overflow-x: hidden;
   text-align: center;
-  transition: background 2s;
 }
 
-/* background photo frames */
+/* background frames */
 .bg-photo {
   position: fixed;
-  width: 140px;
-  padding: 8px;
+  width: 120px;
+  padding: 6px;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-  opacity: 0.6;
-  animation: floatBg 22s linear infinite;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  opacity: 0.7;
   z-index: 0;
+  animation: floatSide 20s ease-in-out infinite alternate;
 }
 
 .bg-photo img {
@@ -33,13 +32,9 @@ body {
   border-radius: 8px;
 }
 
-@keyframes floatBg {
-  from {
-    transform: translateY(110vh) rotate(0deg);
-  }
-  to {
-    transform: translateY(-120vh) rotate(360deg);
-  }
+@keyframes floatSide {
+  from { transform: translateY(0) translateX(0) rotate(-5deg); }
+  to   { transform: translateY(-60px) translateX(40px) rotate(5deg); }
 }
 
 .section {
@@ -68,43 +63,17 @@ button {
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
-  position: relative;
 }
 
-.yes {
-  background: #ff3366;
-  color: white;
-}
+.yes { background: #ff3366; color: white; }
+.no  { background: #ddd; position: relative; }
 
-.no {
-  background: #ddd;
-}
-
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .kiss {
   width: 100%;
   border-radius: 15px;
   margin-top: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-/* hearts */
-.heart {
-  position: fixed;
-  bottom: -10px;
-  font-size: 20px;
-  animation: rise 6s linear infinite;
-  z-index: 1;
-}
-
-@keyframes rise {
-  to {
-    transform: translateY(-110vh);
-    opacity: 0;
-  }
 }
 </style>
 </head>
@@ -129,57 +98,42 @@ button {
 <div class="section hidden" id="yesCard">
   <div class="card">
     <h2>My Forever 💞</h2>
-    <p>
-      I choose you in every lifetime ❤️<br><br>
-      You are my home, my peace, my love 🥹
-    </p>
+    <p>You are my favorite place to be ❤️</p>
     <img src="kiss.jpg" class="kiss">
   </div>
 </div>
 
 <script>
-/* background frames */
-const bgPhotos = ["bg1.jpg","bg2.jpg","bg3.jpg","bg4.jpg","bg5.jpg","bg6.jpg"];
-
-bgPhotos.forEach(src => {
-  const frame = document.createElement("div");
-  frame.className = "bg-photo";
-  frame.style.left = Math.random()*85 + "vw";
-  frame.style.animationDuration = (18 + Math.random()*10) + "s";
-
-  const img = document.createElement("img");
-  img.src = src;
-
-  frame.appendChild(img);
-  document.body.appendChild(frame);
+// background frames (VISIBLE immediately)
+const imgs = ["bg1.jpg","bg2.jpg","bg3.jpg","bg4.jpg","bg5.jpg","bg6.jpg"];
+imgs.forEach((src, i) => {
+  const d = document.createElement("div");
+  d.className = "bg-photo";
+  d.style.top = (10 + i*12) + "vh";
+  d.style.left = (i%2===0 ? 5 : 65) + "vw";
+  const im = document.createElement("img");
+  im.src = src;
+  d.appendChild(im);
+  document.body.appendChild(d);
 });
 
-/* hearts */
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💖";
-  h.style.left = Math.random()*100 + "vw";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-}, 500);
-
-/* NO button run */
+// NO button run (mobile + desktop)
 const noBtn = document.getElementById("noBtn");
-noBtn.addEventListener("mouseover", () => {
-  noBtn.style.position = "absolute";
-  noBtn.style.left = Math.random()*70 + "vw";
-  noBtn.style.top = Math.random()*70 + "vh";
-  alert("Seriously sweety 😢💔");
+["mouseenter","touchstart","click"].forEach(evt=>{
+  noBtn.addEventListener(evt, ()=>{
+    noBtn.style.position="absolute";
+    noBtn.style.left=Math.random()*70+"vw";
+    noBtn.style.top=Math.random()*60+"vh";
+    alert("Seriously sweety 😢💔");
+  });
 });
 
-/* YES */
-function yesClicked() {
+function yesClicked(){
   document.body.style.background =
-    "linear-gradient(135deg, #ff6a88, #ff99ac)";
+    "linear-gradient(135deg,#ff6a88,#ff99ac)";
   document.getElementById("yesCard").classList.remove("hidden");
   document.getElementById("music").play();
-  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
 }
 </script>
 
