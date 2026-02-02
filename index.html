@@ -4,160 +4,183 @@
 <meta charset="UTF-8">
 <title>For My Sweety 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        color: #333;
-        text-align: center;
-        overflow-x: hidden;
-    }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  overflow-x: hidden;
+  text-align: center;
+  transition: background 2s;
+}
 
-    .section {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 30px;
-    }
+/* background photo frames */
+.bg-photo {
+  position: fixed;
+  width: 140px;
+  padding: 8px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  opacity: 0.6;
+  animation: floatBg 22s linear infinite;
+  z-index: 0;
+}
 
-    h1 {
-        font-size: 2.3rem;
-        color: #b30059;
-        animation: fadeIn 2s ease;
-    }
+.bg-photo img {
+  width: 100%;
+  border-radius: 8px;
+}
 
-    h2 {
-        font-size: 2rem;
-        margin-bottom: 20px;
-    }
+@keyframes floatBg {
+  from {
+    transform: translateY(110vh) rotate(0deg);
+  }
+  to {
+    transform: translateY(-120vh) rotate(360deg);
+  }
+}
 
-    .card {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        max-width: 350px;
-        animation: pop 1s ease;
-    }
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  position: relative;
+  z-index: 2;
+}
 
-    .buttons {
-        margin-top: 20px;
-    }
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  max-width: 360px;
+}
 
-    button {
-        font-size: 1.1rem;
-        padding: 10px 25px;
-        margin: 10px;
-        border-radius: 30px;
-        border: none;
-        cursor: pointer;
-    }
+button {
+  padding: 10px 25px;
+  margin: 10px;
+  border-radius: 25px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  position: relative;
+}
 
-    .yes {
-        background: #ff3366;
-        color: white;
-    }
+.yes {
+  background: #ff3366;
+  color: white;
+}
 
-    .no {
-        background: #ddd;
-    }
+.no {
+  background: #ddd;
+}
 
-    .hidden {
-        display: none;
-    }
+.hidden {
+  display: none;
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+.kiss {
+  width: 100%;
+  border-radius: 15px;
+  margin-top: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
 
-    @keyframes pop {
-        0% { transform: scale(0.8); }
-        100% { transform: scale(1); }
-    }
+/* hearts */
+.heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 20px;
+  animation: rise 6s linear infinite;
+  z-index: 1;
+}
 
-    /* floating hearts */
-    .heart {
-        position: fixed;
-        bottom: -10px;
-        font-size: 20px;
-        animation: floatUp 6s linear infinite;
-        opacity: 0.7;
-    }
-
-    @keyframes floatUp {
-        from {
-            transform: translateY(0) translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateY(-110vh) translateX(50px);
-            opacity: 0;
-        }
-    }
+@keyframes rise {
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
 </style>
 </head>
+
 <body>
 
-<!-- Section 1 -->
+<audio id="music" src="love.mp3" loop></audio>
+
 <div class="section">
-    <h1>Thank you my babyy to be with me 😊💖</h1>
-    <p>Scroll down, my love ⬇️</p>
+  <h1>Thank you my babyy to be with me 😊💖</h1>
+  <p>Scroll down, my love ⬇️</p>
 </div>
 
-<!-- Section 2 -->
 <div class="section">
-    <div class="card">
-        <h2>Sweety 😊,<br>will you be my Valentine? 💘</h2>
-        <div class="buttons">
-            <button class="yes" onclick="showLove()">YES ❤️</button>
-            <button class="no" onclick="sayNo()">NO</button>
-        </div>
-    </div>
+  <div class="card">
+    <h2>Sweety 😊<br>Will you be my Valentine? 💘</h2>
+    <button class="yes" onclick="yesClicked()">YES ❤️</button>
+    <button class="no" id="noBtn">NO</button>
+  </div>
 </div>
 
-<!-- Section 3 -->
-<div class="section hidden" id="loveCard">
-    <div class="card">
-        <h2>My Love 💖</h2>
-        <p>
-            From the moment you came into my life,<br>
-            everything became more beautiful 🌸<br><br>
-            Your smile is my favorite place,<br>
-            your heart is my home 🏡💞<br><br>
-            I promise to care for you,<br>
-            respect you, and love you endlessly 💍✨
-        </p>
-        <h3>Forever yours ❤️</h3>
-    </div>
+<div class="section hidden" id="yesCard">
+  <div class="card">
+    <h2>My Forever 💞</h2>
+    <p>
+      I choose you in every lifetime ❤️<br><br>
+      You are my home, my peace, my love 🥹
+    </p>
+    <img src="kiss.jpg" class="kiss">
+  </div>
 </div>
 
 <script>
-function showLove() {
-    document.getElementById("loveCard").classList.remove("hidden");
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-}
+/* background frames */
+const bgPhotos = ["bg1.jpg","bg2.jpg","bg3.jpg","bg4.jpg","bg5.jpg","bg6.jpg"];
 
-function sayNo() {
-    alert("Seriously sweety 😢💔");
-}
+bgPhotos.forEach(src => {
+  const frame = document.createElement("div");
+  frame.className = "bg-photo";
+  frame.style.left = Math.random()*85 + "vw";
+  frame.style.animationDuration = (18 + Math.random()*10) + "s";
 
-// hearts generator
+  const img = document.createElement("img");
+  img.src = src;
+
+  frame.appendChild(img);
+  document.body.appendChild(frame);
+});
+
+/* hearts */
 setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (15 + Math.random() * 20) + "px";
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+  h.style.left = Math.random()*100 + "vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
 }, 500);
+
+/* NO button run */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random()*70 + "vw";
+  noBtn.style.top = Math.random()*70 + "vh";
+  alert("Seriously sweety 😢💔");
+});
+
+/* YES */
+function yesClicked() {
+  document.body.style.background =
+    "linear-gradient(135deg, #ff6a88, #ff99ac)";
+  document.getElementById("yesCard").classList.remove("hidden");
+  document.getElementById("music").play();
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
 </script>
 
 </body>
